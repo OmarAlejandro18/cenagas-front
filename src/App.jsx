@@ -1,9 +1,13 @@
-import SideBar from './components/SideBar'
+import Instalacion from "./components/Instalacion";
+import SideBar from "./components/SideBar";
 
 function App() {
   return (
-    <SideBar/>
-  )
+    <>
+      <SideBar />
+      <Instalacion />
+    </>
+  );
 }
 
-export default App
+export default App;
