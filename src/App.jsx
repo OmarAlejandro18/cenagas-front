@@ -1,11 +1,17 @@
-import Instalacion from "./components/Instalacion";
-import SideBar from "./components/SideBar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import SidebarLayout from "./layouts/SidebarLayout";
+import Dashboard from "./pages/private/Dashboard";
 
 function App() {
   return (
     <>
-      <SideBar />
-      <Instalacion />
+      <BrowserRouter>
+        <Routes>
+          {/* Rutas publicas */}
+          {/* Rutas privadas */}
+          <Route path="/dash" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
