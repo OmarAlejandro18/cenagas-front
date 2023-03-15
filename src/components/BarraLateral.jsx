@@ -9,7 +9,7 @@ import {
 import { Fragment } from "react";
 
 const navigation = [
-  { name: "Inicio", href: "#", icon: HomeIcon, current: true },
+  // { name: "Inicio", href: "#", icon: HomeIcon, current: true },
   { name: "Instalación", href: "#", icon: Bars4Icon, current: false },
   //   { name: "Componente", href: "#", icon: ClockIcon, current: false },
 ];

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SidebarLayout from "./layouts/SidebarLayout";
-import Dashboard from "./pages/private/Dashboard";
+import InstalacionPagina from "./pages/private/InstalacionPagina";
 
 function App() {
   return (
@@ -9,7 +9,9 @@ function App() {
         <Routes>
           {/* Rutas publicas */}
           {/* Rutas privadas */}
-          <Route path="/dash" element={<Dashboard />} />
+          <Route path="/dash" element={<SidebarLayout />}>
+            <Route index element={<InstalacionPagina />}></Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
