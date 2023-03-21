@@ -1,20 +1,13 @@
-import Modal from "./Modal";
+import ModalEditar from "./ModalEditar";
+
 const TablaIntalacion = ({
   open,
   setOpen,
-  opcion,
-  setOpcion,
   instalaciones,
   setInstalaciones,
   instalacion,
   setInstalacion,
 }) => {
-  const handleEditar = (dato) => {
-    setOpen(true);
-    setOpcion(2);
-    setInstalacion(dato);
-  };
-
   return (
     <table className="min-w-full divide-y divide-gray-300">
       <thead className="bg-gray-50">
@@ -61,15 +54,13 @@ const TablaIntalacion = ({
                 <span className="pl-2 font-bold">Editar</span>
               </button>
               {open && (
-                <Modal
+                <ModalEditar
                   open={open}
                   setOpen={setOpen}
-                  opcion={opcion}
-                  setOpcion={setOpcion}
                   instalaciones={instalaciones}
                   setInstalaciones={setInstalaciones}
                   instalacion={instalacion}
-                  setinstalacion={setInstalacion}
+                  setInstalacion={setInstalacion}
                 />
               )}
 

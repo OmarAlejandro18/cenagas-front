@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Modal from "./Modal";
+import ModalCrear from "./ModalCrear";
 import TablaInstalacion from "./TablaIntalacion";
 
 const Instalacion = () => {
   const [open, setOpen] = useState(false);
-  const [opcion, setOpcion] = useState(1);
   const [instalaciones, setInstalaciones] = useState([]);
   const [instalacion, setInstalacion] = useState({});
 
@@ -52,15 +52,11 @@ const Instalacion = () => {
                 <span className="pl-2 font-bold">Crear</span>
               </button>
               {open && (
-                <Modal
-                  open={open} //La primera vez esta en false cuando se da click true
+                <ModalCrear
+                  open={open}
                   setOpen={setOpen}
-                  opcion={opcion} // Esta en 1 la primera vez
-                  setOpcion={setOpcion}
-                  instalaciones={instalaciones} //Son todas las intalaciones esta vacio la primera vez
+                  instalaciones={instalaciones}
                   setInstalaciones={setInstalaciones}
-                  instalacion={instalacion} //En este caso siempre es {} vacio
-                  setInstalacion={setInstalacion}
                 />
               )}
             </div>
@@ -72,8 +68,6 @@ const Instalacion = () => {
                   <TablaInstalacion
                     open={open} //La primera vez esta en false cuando se da click true
                     setOpen={setOpen}
-                    opcion={opcion} // Esta en 1 la primera vez
-                    setOpcion={setOpcion}
                     instalaciones={instalaciones} //Son todas las intalaciones esta vacio la primera vez
                     setInstalaciones={setInstalaciones}
                     instalacion={instalacion} //En este caso siempre es {} vacio
