@@ -1,7 +1,11 @@
-import React from "react";
+import Crear from "../../components/Componentes/Crear";
 
 const ComponenteCrear = () => {
-  return <div>ComponenteCrear</div>;
+  return (
+    <>
+      <Crear />
+    </>
+  );
 };
 
 export default ComponenteCrear;

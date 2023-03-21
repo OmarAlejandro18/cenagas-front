@@ -9,13 +9,11 @@ import {
 import { Link } from "react-router-dom";
 
 const navigation = [
-  // { name: "Inicio", href: "#", icon: HomeIcon, current: true },
-  { name: "Instalación", href: "#", icon: Bars4Icon, current: false },
-  //   { name: "Componente", href: "#", icon: ClockIcon, current: false },
+  { name: "Instalación", href: "/dash", icon: Bars4Icon, current: false },
 ];
 const navigation2 = [
   {
-    name: "Tu pendejo",
+    name: "Componente",
     icon: ChartBarIcon,
     current: false,
     children: [
@@ -96,9 +94,9 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
                   <nav className="px-2">
                     <div className="space-y-1">
                       {navigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? "bg-gray-100 text-gray-900"
@@ -106,6 +104,9 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
                             "group flex items-center rounded-md px-2 py-2 text-base font-medium leading-5"
                           )}
                           aria-current={item.current ? "page" : undefined}
+                          onClick={() => {
+                            setSidebarOpen(false);
+                          }}
                         >
                           <item.icon
                             className={classNames(
@@ -117,7 +118,7 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                       {navigation2.map((item) => (
                         <Disclosure
@@ -158,14 +159,14 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
                               </Disclosure.Button>
                               <Disclosure.Panel className="space-y-1">
                                 {item.children.map((subItem) => (
-                                  <Disclosure.Button
+                                  <Link
                                     key={subItem.name}
-                                    as="a"
-                                    href={subItem.href}
+                                    to={subItem.href}
+                                    onClick={() => setSidebarOpen(false)}
                                     className="group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                                   >
                                     {subItem.name}
-                                  </Disclosure.Button>
+                                  </Link>
                                 ))}
                               </Disclosure.Panel>
                             </>

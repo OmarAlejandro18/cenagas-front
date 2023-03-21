@@ -1,7 +1,11 @@
-import React from "react";
+import Listar from "../../components/Componentes/Listar";
 
 const ComponenteListar = () => {
-  return <div>ComponenteListar</div>;
+  return (
+    <>
+      <Listar />
+    </>
+  );
 };
 
 export default ComponenteListar;

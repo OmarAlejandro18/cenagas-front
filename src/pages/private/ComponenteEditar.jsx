@@ -1,7 +1,11 @@
-import React from "react";
+import Editar from "../../components/Componentes/Editar";
 
 const ComponenteEditar = () => {
-  return <div>ComponenteEditar</div>;
+  return (
+    <>
+      <Editar />
+    </>
+  );
 };
 
 export default ComponenteEditar;
