@@ -1,13 +1,19 @@
 import ModalEditar from "./ModalEditar";
 
 const TablaIntalacion = ({
-  open,
-  setOpen,
+  abrirEditar,
+  setAbrirEditar,
   instalaciones,
   setInstalaciones,
   instalacion,
   setInstalacion,
 }) => {
+  const handleEditar = (e, dato) => {
+    e.preventDefault();
+    setAbrirEditar(true);
+    setInstalacion(dato);
+  };
+
   return (
     <table className="min-w-full divide-y divide-gray-300">
       <thead className="bg-gray-50">
@@ -35,7 +41,7 @@ const TablaIntalacion = ({
             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-center text-sm font-medium sm:pr-6">
               <button
                 className="inline-flex items-center justify-center p-3 mr-2 text-pink-100 transition-colors duration-150 bg-blue-500 rounded-full focus:shadow-outline hover:bg-blue-800"
-                onClick={() => handleEditar(dato)}
+                onClick={(e) => handleEditar(e, dato)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -53,20 +59,20 @@ const TablaIntalacion = ({
                 </svg>
                 <span className="pl-2 font-bold">Editar</span>
               </button>
-              {open && (
+              {abrirEditar && (
                 <ModalEditar
-                  open={open}
-                  setOpen={setOpen}
-                  instalaciones={instalaciones}
-                  setInstalaciones={setInstalaciones}
+                  abrirEditar={abrirEditar}
+                  setAbrirEditar={setAbrirEditar}
                   instalacion={instalacion}
                   setInstalacion={setInstalacion}
+                  instalaciones={instalaciones}
+                  setInstalaciones={setInstalaciones}
                 />
               )}
 
               <button
                 className="inline-flex items-center justify-center p-3 mr-2 text-pink-100 transition-colors duration-150 bg-red-500 rounded-full focus:shadow-outline hover:bg-red-800"
-                onClick={(e) => {}}
+                // onClick={handleEliminar}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

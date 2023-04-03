@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const opcionesPozo = [{ opicion: "Equipo" }, { opicion: "Componente" }];
 const opcionesEmisiones = [
   { opicion: "Gramos" },

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import Modal from "./Modal";
 import ModalCrear from "./ModalCrear";
 import TablaInstalacion from "./TablaIntalacion";
 
 const Instalacion = () => {
-  const [open, setOpen] = useState(false);
+  const [abrirCrear, setAbrirCrear] = useState(false);
+  const [abrirEditar, setAbrirEditar] = useState(false);
   const [instalaciones, setInstalaciones] = useState([]);
   const [instalacion, setInstalacion] = useState({});
 
@@ -33,7 +33,7 @@ const Instalacion = () => {
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md bg-green-500 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-                onClick={() => setOpen(true)}
+                onClick={() => setAbrirCrear(true)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -51,10 +51,10 @@ const Instalacion = () => {
                 </svg>
                 <span className="pl-2 font-bold">Crear</span>
               </button>
-              {open && (
+              {abrirCrear && (
                 <ModalCrear
-                  open={open}
-                  setOpen={setOpen}
+                  abrirCrear={abrirCrear}
+                  setAbrirCrear={setAbrirCrear}
                   instalaciones={instalaciones}
                   setInstalaciones={setInstalaciones}
                 />
@@ -66,8 +66,8 @@ const Instalacion = () => {
               <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                 <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                   <TablaInstalacion
-                    open={open} //La primera vez esta en false cuando se da click true
-                    setOpen={setOpen}
+                    abrirEditar={abrirEditar} //La primera vez esta en false cuando se da click true
+                    setAbrirEditar={setAbrirEditar}
                     instalaciones={instalaciones} //Son todas las intalaciones esta vacio la primera vez
                     setInstalaciones={setInstalaciones}
                     instalacion={instalacion} //En este caso siempre es {} vacio

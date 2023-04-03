@@ -2,24 +2,31 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
+const ModalCrear = ({
+  abrirCrear,
+  setAbrirCrear,
+  instalaciones,
+  setInstalaciones,
+}) => {
   const [id, setId] = useState(instalaciones.length);
+  // const [id, setId] = useState(0);
   const [nombre, setNombre] = useState("");
 
   const handleCrear = (e) => {
     e.preventDefault();
+    setId(instalaciones.length);
     // Objeto Intalacion
     const objetoInstalacion = {
       id,
       nombre,
     };
     setInstalaciones([...instalaciones, objetoInstalacion]);
-    setOpen(false);
+    setAbrirCrear(false);
   };
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={abrirCrear} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setAbrirCrear}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -48,7 +55,7 @@ const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => setOpen(false)}
+                    onClick={() => setAbrirCrear(false)}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -93,7 +100,7 @@ const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                      onClick={() => setOpen(false)}
+                      onClick={() => setAbrirCrear(false)}
                     >
                       Cancel
                     </button>

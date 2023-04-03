@@ -2,15 +2,53 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
-  const handleEditar = (dato) => {
-    setOpen(true);
-    setInstalacion(dato);
+const ModalEditar = ({
+  abrirEditar,
+  setAbrirEditar,
+  instalacion,
+  setInstalacion,
+  instalaciones,
+  setInstalaciones,
+}) => {
+  const { id, nombre } = instalacion;
+  const [nombreEditar, setNombreEditar] = useState(nombre);
+
+  console.log(nombreEditar);
+
+  const handleEditar = (e) => {
+    e.preventDefault();
+
+    console.log(nombreEditar);
+
+    const objetoNuevo = {
+      id: id,
+      nombre: nombreEditar,
+    };
+    console.log(objetoNuevo);
+    setInstalacion(objetoNuevo);
+    console.log(instalacion);
+    const prueba = [];
+    const instalacionesActualizadas = instalaciones.map(
+      (objetoInstalacion, index) => {
+        /*if (objetoInstalacion.id === objetoNuevo.id) {
+          prueba.push(objetoNuevo);
+        } else {
+          prueba.push(objetoInstalacion);
+        }*/
+        index == objetoNuevo.id
+          ? (objetoInstalacion = objetoNuevo)
+          : instalaciones[index];
+      }
+    );
+    console.log(instalacionesActualizadas);
+    console.log(prueba);
+    setInstalaciones(prueba);
+    setAbrirEditar(false);
   };
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={abrirEditar} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setAbrirEditar}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -39,7 +77,7 @@ const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    onClick={() => setOpen(false)}
+                    onClick={() => setAbrirEditar(false)}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -66,8 +104,8 @@ const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
                             id="nombre"
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-200 sm:text-sm sm:leading-6"
                             placeholder="Nombre de la Instalación"
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
+                            value={nombreEditar}
+                            onChange={(e) => setNombreEditar(e.target.value)}
                           />
                         </div>
                       </div>
@@ -84,7 +122,7 @@ const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                      onClick={() => setOpen(false)}
+                      onClick={() => setAbrirEditar(false)}
                     >
                       Cancel
                     </button>
@@ -99,4 +137,4 @@ const ModalCrear = ({ open, setOpen, instalaciones, setInstalaciones }) => {
   );
 };
 
-export default ModalCrear;
+export default ModalEditar;
