@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SidebarLayout from "./layouts/SidebarLayout";
+import Sidebar from "./layouts/Sidebar";
 import ComponenteCrear from "./pages/private/ComponenteCrear";
 import ComponenteEditar from "./pages/private/ComponenteEditar";
 import ComponenteListar from "./pages/private/ComponenteListar";
@@ -10,7 +11,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/dash" element={<SidebarLayout />}>
+          <Route path="/dash" element={<Sidebar />}>
             <Route index element={<InstalacionPagina />} />
             <Route path="/dash/crear" element={<ComponenteCrear />} />
             <Route path="/dash/editar" element={<ComponenteEditar />} />
