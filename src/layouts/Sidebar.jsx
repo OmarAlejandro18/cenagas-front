@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { Dialog, Transition } from "@headlessui/react";
+import { Link, Outlet } from "react-router-dom";
+import { Dialog, Disclosure, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -11,14 +11,22 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
+  {
+    name: "Team",
+    href: "#",
+    icon: UsersIcon,
+    current: false,
+    children: [
+      { name: "Engineering", href: "#" },
+      { name: "Human Resources", href: "#" },
+      { name: "Customer Success", href: "#" },
+    ],
+  },
   { name: "Projects", href: "#", icon: FolderIcon, current: false },
-  //   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  //   { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  //   { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
 ];
 const teams = [
   { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
@@ -30,16 +38,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const cambiar = (e, i) => {
-  e.preventDefault();
-  if (navigation[i] == false) {
-    navigation[i].current = true;
-  }
-  navigation[i].current = true;
-};
-
 const Sidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentNavItem, setCurrentNavItem] = useState(
+    navigation.find((item) => item.current)?.name
+  );
   return (
     <>
       {/*
@@ -180,84 +183,114 @@ const Sidebar = () => {
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
           {/* Componente de barra lateral, intercambie este elemento con otra barra lateral si lo desea */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#CF1350] px-6">
-            <div className="flex h-16 shrink-0 items-center">
+            <div className="flex h-16 shrink-0 items-center pt-10">
               <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=white"
                 alt="Your Company"
               />
             </div>
+            <div className="w-full h-px bg-white/[0.8] z-10 relative my-3"></div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item, i) => (
+                    {navigation.map((item) => (
                       <li key={item.name}>
-                        {/* <a
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-white text-[#8A0C35]"
-                              : "text-slate-200 hover:text-[#8A0C35] hover:bg-white",
-                            "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-                          )}
-                        >
-                          <item.icon
+                        {!item.children ? (
+                          <a
                             className={classNames(
-                              item.current
-                                ? "text-[#8A0C35]"
-                                : "text-slate-200 group-hover:text-[#8A0C35]",
-                              "h-6 w-6 shrink-0"
+                              item.name === currentNavItem
+                                ? "bg-slate-100 text-[#8A0C35] before:content-[''] before:w-[30px] before:h-[30px] before:-mt-[30px] before:rotate-90 before:scale-[1.04] before:bg-[length:100%] before:bg-[url('/img/curva.svg')] before:absolute before:top-0 before:right-0 before:-mr-[15.5px] after:content-[''] after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04] after:bg-[length:100%] after:bg-[url('/img/curva.svg')] after:absolute after:top-0 after:right-0 after:-mr-[15.5px]"
+                                : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                              "group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
                             )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </a> */}
-                        <a
-                          onClick={(e, i) => cambiar(e, i)}
-                          className={classNames(
-                            item.current
-                              ? "bg-slate-100 text-[#8A0C35] group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10 before:content-[''] before:w-[30px] before:h-[30px] before:-mt-[30px] before:rotate-90 before:scale-[1.04] before:bg-[length:100%] before:bg-[url('/img/curva.svg')] before:absolute before:top-0 before:right-0 before:-mr-[15.5px] after:content-[''] after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04] after:bg-[length:100%] after:bg-[url('/img/curva.svg')] after:absolute after:top-0 after:right-0 after:-mr-[15.5px]"
-                              : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
-                            ""
-                          )}
-                        >
-                          {item.current ? (
-                            <>
-                              <div className="before:content-[''] before:z-[-1] before:absolute before:top-0 before:right-0 before:-mr-4 before:w-12 before:h-full before:bg-slate-100 before:dark:bg-darkmode-700">
-                                <item.icon
-                                  className={classNames(
-                                    item.current
-                                      ? "text-[#8A0C35]"
-                                      : "text-slate-200 group-hover:text-[#8A0C35]",
-                                    "h-6 w-6 shrink-0"
-                                  )}
-                                  aria-hidden="true"
-                                />
-                              </div>
-                              {/* <div class="hidden xl:flex items-center w-full ml-3 text-slate-800 font-medium dark:text-slate-300"> */}
-                              {item.name}
-                              {/* </div> */}
-                            </>
-                          ) : (
-                            <>
-                              {/* <div className="before:content-[''] before:z-[-1] before:absolute before:top-0 before:right-0 before:-mr-4 before:w-12 before:h-full before:bg-slate-100 before:dark:bg-darkmode-700"> */}
+                            onClick={() => setCurrentNavItem(item.name)}
+                          >
+                            <div
+                              className={`${
+                                item.name === currentNavItem
+                                  ? "before:content-[''] before:z-[-1] before:absolute before:top-0 before:right-0 before:-mr-4 before:w-12 before:h-full before:bg-slate-100"
+                                  : ""
+                              }`}
+                            >
                               <item.icon
                                 className={classNames(
-                                  item.current
+                                  item.name === currentNavItem
                                     ? "text-[#8A0C35]"
                                     : "text-slate-200 group-hover:text-[#8A0C35]",
                                   "h-6 w-6 shrink-0"
                                 )}
                                 aria-hidden="true"
                               />
-                              {/* </div> */}
-                              {/* <div class="hidden xl:flex items-center w-full ml-3 text-slate-800 font-medium dark:text-slate-300"> */}
-                              {item.name}
-                              {/* </div> */}
-                            </>
-                          )}
-                        </a>
+                            </div>
+                            {/* <div class="hidden xl:flex items-center w-full ml-3 text-slate-800 font-medium dark:text-slate-300"> */}
+                            {item.name}
+                            {/* </div> */}
+                          </a>
+                        ) : (
+                          <Disclosure as="div">
+                            {({ open }) => (
+                              <>
+                                <Disclosure.Button
+                                  className={classNames(
+                                    item.name === currentNavItem
+                                      ? "bg-slate-100 text-[#8A0C35]"
+                                      : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                                    "group cursor-pointer h-[50px] w-full flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
+                                  )}
+                                >
+                                  <item.icon
+                                    className={classNames(
+                                      item.name === currentNavItem
+                                        ? "text-[#8A0C35]"
+                                        : "text-slate-200 group-hover:text-[#8A0C35]",
+                                      "h-6 w-6 shrink-0"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                  {item.name}
+                                  <ChevronRightIcon
+                                    className={classNames(
+                                      open ? "rotate-90 " : "",
+                                      "text-slate-200 group-hover:text-[#8A0C35] ml-auto h-5 w-5 shrink-0"
+                                    )}
+                                    aria-hidden="true"
+                                  />
+                                </Disclosure.Button>
+                                <Disclosure.Panel as="ul" className="mt-1 pl-8">
+                                  {item.children.map((subItem) => (
+                                    <li key={subItem.name}>
+                                      {/* 44px */}
+                                      <Link
+                                        to={subItem.href}
+                                        className={classNames(
+                                          subItem.name === currentNavItem
+                                            ? "bg-slate-100 text-[#8A0C35] before:content-[''] before:w-[30px] before:h-[30px] before:-mt-[30px] before:rotate-90 before:scale-[1.04] before:bg-[length:100%] before:bg-[url('/img/curva.svg')] before:absolute before:top-0 before:right-0 before:-mr-[15.5px] after:content-[''] after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04] after:bg-[length:100%] after:bg-[url('/img/curva.svg')] after:absolute after:top-0 after:right-0 after:-mr-[15.5px]"
+                                            : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                                          "group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
+                                        )}
+                                        onClick={() =>
+                                          setCurrentNavItem(subItem.name)
+                                        }
+                                      >
+                                        <div
+                                          className={`${
+                                            subItem.name === currentNavItem
+                                              ? "before:content-[''] before:z-[-1] before:absolute before:top-0 before:right-0 before:-mr-4 before:w-12 before:h-full before:bg-slate-100"
+                                              : ""
+                                          }`}
+                                        >
+                                          {subItem.name}
+                                        </div>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </Disclosure.Panel>
+                              </>
+                            )}
+                          </Disclosure>
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -305,7 +338,7 @@ const Sidebar = () => {
         </div>
 
         <main className="py-10 lg:pl-72 bg-[#CF1350] h-screen">
-          <div className="pr-4 rounded-lg">
+          <div className="pr-4">
             <Outlet />
           </div>
         </main>
