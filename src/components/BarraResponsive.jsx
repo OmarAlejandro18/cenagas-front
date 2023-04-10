@@ -1,40 +1,23 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Transition } from "@headlessui/react";
-import {
-  Bars4Icon,
-  ChartBarIcon,
-  HomeIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 
-const navigation = [
-  { name: "Instalación", href: "/dash", icon: Bars4Icon, current: false },
-];
-const navigation2 = [
-  {
-    name: "Componente",
-    icon: ChartBarIcon,
-    current: false,
-    children: [
-      { name: "Crear", href: "/dash/crear" },
-      { name: "Editar", href: "/dash/editar" },
-      { name: "Listar", href: "/dash/listar" },
-    ],
-  },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
+const BarraResponsive = ({
+  sidebarOpen,
+  setSidebarOpen,
+  classNames,
+  navigation,
+  currentNavItem,
+  setCurrentNavItem,
+}) => {
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-40 lg:hidden"
+          className="relative z-50 lg:hidden"
           onClose={setSidebarOpen}
         >
           <Transition.Child
@@ -46,10 +29,10 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+            <div className="fixed inset-0 bg-gray-900/80" />
           </Transition.Child>
 
-          <div className="fixed inset-0 z-40 flex">
+          <div className="fixed inset-0 flex">
             <Transition.Child
               as={Fragment}
               enter="transition ease-in-out duration-300 transform"
@@ -59,7 +42,7 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4">
+              <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -69,10 +52,10 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="absolute top-0 right-0 -mr-12 pt-2">
+                  <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                     <button
                       type="button"
-                      className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                      className="-m-2.5 p-2.5"
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
@@ -83,104 +66,111 @@ const BarraResponsive = ({ sidebarOpen, setSidebarOpen }) => {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex flex-shrink-0 items-center px-4">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=purple&shade=500"
-                    alt="Your Company"
-                  />
-                </div>
-                <div className="mt-5 h-0 flex-1 overflow-y-auto">
-                  <nav className="px-2">
-                    <div className="space-y-1">
-                      {navigation.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                            "group flex items-center rounded-md px-2 py-2 text-base font-medium leading-5"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                          onClick={() => {
-                            setSidebarOpen(false);
-                          }}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? "text-gray-500"
-                                : "text-gray-400 group-hover:text-gray-500",
-                              "mr-3 h-6 w-6 flex-shrink-0"
-                            )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </Link>
-                      ))}
-                      {navigation2.map((item) => (
-                        <Disclosure
-                          as="div"
-                          key={item.name}
-                          className="space-y-1"
-                        >
-                          {({ open }) => (
-                            <>
-                              <Disclosure.Button
-                                className={classNames(
-                                  item.current
-                                    ? "bg-gray-100 text-gray-900"
-                                    : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                                  "group flex w-full items-center rounded-md py-2 pl-2 pr-1 text-left text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                )}
-                              >
-                                <item.icon
-                                  className="mr-3 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                  aria-hidden="true"
-                                />
-                                <span className="flex-1">{item.name}</span>
-                                <svg
+                {/* Componente de barra lateral */}
+                <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#CF1350] px-6 pb-2">
+                  <div className="flex h-16 shrink-0 items-center">
+                    <img
+                      className="h-8 w-auto"
+                      src="https://tailwindui.com/img/logos/mark.svg?color=white"
+                      alt="Your Company"
+                    />
+                  </div>
+                  <nav className="flex flex-1 flex-col">
+                    <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                      <li>
+                        <ul role="list" className="-mx-2 space-y-1">
+                          {navigation.map((item) => (
+                            <li key={item.name}>
+                              {!item.children ? (
+                                <a
                                   className={classNames(
-                                    open
-                                      ? "rotate-90 text-gray-400"
-                                      : "text-gray-300",
-                                    "ml-3 h-5 w-5 flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400"
+                                    item.name === currentNavItem
+                                      ? "bg-slate-100 text-[#8A0C35]"
+                                      : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                                    "group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
                                   )}
-                                  viewBox="0 0 20 20"
-                                  aria-hidden="true"
+                                  onClick={() => setCurrentNavItem(item.name)}
                                 >
-                                  <path
-                                    d="M6 6L14 10L6 14V6Z"
-                                    fill="currentColor"
+                                  <item.icon
+                                    className={classNames(
+                                      item.name === currentNavItem
+                                        ? "text-[#8A0C35]"
+                                        : "text-slate-200 group-hover:text-[#8A0C35]",
+                                      "h-6 w-6 shrink-0"
+                                    )}
+                                    aria-hidden="true"
                                   />
-                                </svg>
-                              </Disclosure.Button>
-                              <Disclosure.Panel className="space-y-1">
-                                {item.children.map((subItem) => (
-                                  <Link
-                                    key={subItem.name}
-                                    to={subItem.href}
-                                    onClick={() => setSidebarOpen(false)}
-                                    className="group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                                  >
-                                    {subItem.name}
-                                  </Link>
-                                ))}
-                              </Disclosure.Panel>
-                            </>
-                          )}
-                        </Disclosure>
-                      ))}
-                    </div>
+                                  {item.name}
+                                </a>
+                              ) : (
+                                <Disclosure as="div">
+                                  {({ open }) => (
+                                    <>
+                                      <Disclosure.Button
+                                        className={classNames(
+                                          item.name === currentNavItem
+                                            ? "bg-slate-100 text-[#8A0C35]"
+                                            : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                                          "group cursor-pointer h-[50px] w-full flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
+                                        )}
+                                      >
+                                        <item.icon
+                                          className={classNames(
+                                            item.name === currentNavItem
+                                              ? "text-[#8A0C35]"
+                                              : "text-slate-200 group-hover:text-[#8A0C35]",
+                                            "h-6 w-6 shrink-0"
+                                          )}
+                                          aria-hidden="true"
+                                        />
+                                        {item.name}
+                                        <ChevronRightIcon
+                                          className={classNames(
+                                            open
+                                              ? "transition ease-in duration-100 ml-auto mr-5 hidden xl:block transform rotate-90"
+                                              : "",
+                                            "text-slate-200 group-hover:text-[#8A0C35] ml-auto h-5 w-5 shrink-0 mr-5"
+                                          )}
+                                          aria-hidden="true"
+                                        />
+                                      </Disclosure.Button>
+                                      <Disclosure.Panel
+                                        as="ul"
+                                        className="mt-1 pl-8"
+                                      >
+                                        {item.children.map((subItem) => (
+                                          <li key={subItem.name}>
+                                            {/* 44px */}
+                                            <Link
+                                              to={subItem.href}
+                                              className={classNames(
+                                                subItem.name === currentNavItem
+                                                  ? "bg-slate-100 text-[#8A0C35]"
+                                                  : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                                                "group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
+                                              )}
+                                              onClick={() =>
+                                                setCurrentNavItem(subItem.name)
+                                              }
+                                            >
+                                              {subItem.name}
+                                            </Link>
+                                          </li>
+                                        ))}
+                                      </Disclosure.Panel>
+                                    </>
+                                  )}
+                                </Disclosure>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    </ul>
                   </nav>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
-            <div className="w-14 flex-shrink-0" aria-hidden="true">
-              {/* Dummy element to force sidebar to shrink to fit close icon */}
-            </div>
           </div>
         </Dialog>
       </Transition.Root>

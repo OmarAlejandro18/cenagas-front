@@ -26,7 +26,7 @@ const ModalCrear = ({
 
   return (
     <Transition.Root show={abrirCrear} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setAbrirCrear}>
+      <Dialog as="div" className="relative z-50" onClose={setAbrirCrear}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

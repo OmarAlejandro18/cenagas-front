@@ -48,7 +48,7 @@ const ModalEditar = ({
 
   return (
     <Transition.Root show={abrirEditar} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setAbrirEditar}>
+      <Dialog as="div" className="relative z-50" onClose={setAbrirEditar}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

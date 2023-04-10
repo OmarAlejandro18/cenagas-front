@@ -11,11 +11,11 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/dash" element={<Sidebar />}>
+          <Route path="/dashboard" element={<Sidebar />}>
             <Route index element={<InstalacionPagina />} />
-            <Route path="/dash/crear" element={<ComponenteCrear />} />
-            <Route path="/dash/editar" element={<ComponenteEditar />} />
-            <Route path="/dash/listar" element={<ComponenteListar />} />
+            <Route path="/dashboard/crear" element={<ComponenteCrear />} />
+            <Route path="/dashboard/editar" element={<ComponenteEditar />} />
+            <Route path="/dashboard/listar" element={<ComponenteListar />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import {
   Bars4Icon,
   ChartBarIcon,
@@ -9,256 +10,128 @@ import {
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-const navigation = [
-  { name: "Instalación", href: "/dash", icon: Bars4Icon, current: true },
-];
-const navigation2 = [
-  {
-    name: "Componente",
-    icon: ChartBarIcon,
-    current: false,
-    children: [
-      { name: "Crear", href: "/dash/crear" },
-      { name: "Editar", href: "/dash/editar" },
-      { name: "Listar", href: "/dash/listar" },
-    ],
-  },
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-const BarraLateral = () => {
+const BarraLateral = ({
+  classNames,
+  navigation,
+  currentNavItem,
+  setCurrentNavItem,
+}) => {
   return (
     <>
-      <div className="flex flex-shrink-0 items-center px-6">
-        <img
-          className="h-8 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=purple&shade=500"
-          alt="Your Company"
-        />
-      </div>
-      <div className="mt-5 flex h-0 flex-1 flex-col overflow-y-auto pt-1">
-        {/* User account dropdown */}
-        <Menu as="div" className="relative inline-block px-3 text-left">
-          <div>
-            <Menu.Button className="group w-full rounded-md bg-gray-100 px-3.5 py-2 text-left text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-              <span className="flex w-full items-center justify-between">
-                <span className="flex min-w-0 items-center justify-between space-x-3">
-                  <img
-                    className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
-                    src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
-                    alt=""
-                  />
-                  <span className="flex min-w-0 flex-1 flex-col">
-                    <span className="truncate text-sm font-medium text-gray-900">
-                      Jessy Schwarz
-                    </span>
-                    <span className="truncate text-sm text-gray-500">
-                      @jessyschwarz
-                    </span>
-                  </span>
-                </span>
-                <ChevronUpDownIcon
-                  className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                  aria-hidden="true"
-                />
-              </span>
-            </Menu.Button>
-          </div>
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute right-0 left-0 z-10 mx-3 mt-1 origin-top divide-y divide-gray-200 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      View profile
-                    </a>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Settings
-                    </a>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Notifications
-                    </a>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Get desktop app
-                    </a>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Support
-                    </a>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                        "block px-4 py-2 text-sm"
-                      )}
-                    >
-                      Logout
-                    </a>
-                  )}
-                </Menu.Item>
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>
-        {/* Sidebar Search */}
-        <div className="mt-5 px-3">
-          <label htmlFor="search" className="sr-only">
-            Search
-          </label>
-          <div className="relative mt-1 rounded-md shadow-sm">
-            <div
-              className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
-              aria-hidden="true"
-            >
-              <MagnifyingGlassIcon
-                className="h-4 w-4 text-gray-400"
-                aria-hidden="true"
-              />
-            </div>
-            <input
-              type="text"
-              name="search"
-              id="search"
-              className="block w-full rounded-md border-0 py-1.5 pl-9 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              placeholder="Search"
-            />
-          </div>
+      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#CF1350] px-6">
+        <div className="flex h-16 shrink-0 items-center pt-10">
+          <img
+            className="h-8 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=white"
+            alt="Your Company"
+          />
         </div>
-        {/* Navigation */}
-        <nav className="mt-6 px-3">
-          <div className="space-y-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={classNames(
-                  item.current
-                    ? "bg-gray-200 text-gray-900"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-gray-900",
-                  "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
-                )}
-                aria-current={item.current ? "page" : undefined}
-              >
-                <item.icon
-                  className={classNames(
-                    item.current
-                      ? "text-gray-500"
-                      : "text-gray-400 group-hover:text-gray-500",
-                    "mr-3 h-6 w-6 flex-shrink-0"
-                  )}
-                  aria-hidden="true"
-                />
-                {item.name}
-              </Link>
-            ))}
-            {navigation2.map((item) => (
-              <Disclosure as="div" key={item.name} className="space-y-1">
-                {({ open }) => (
-                  <>
-                    <Disclosure.Button
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-200 text-gray-900"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                        "group flex w-full items-center rounded-md py-2 pl-2 pr-1 text-left text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                      )}
-                    >
-                      <item.icon
-                        className="mr-3 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                        aria-hidden="true"
-                      />
-                      <span className="flex-1">{item.name}</span>
-                      <svg
+        <div className="w-full h-px bg-white/[0.8] z-10 relative my-3"></div>
+        <nav className="flex flex-1 flex-col">
+          <ul role="list" className="flex flex-1 flex-col gap-y-7">
+            <li>
+              <ul role="list" className="-mx-2 space-y-1">
+                {navigation.map((item) => (
+                  <li key={item.name}>
+                    {!item.children ? (
+                      <a
                         className={classNames(
-                          open ? "rotate-90 text-gray-400" : "text-gray-300",
-                          "ml-3 h-5 w-5 flex-shrink-0 transform transition-colors duration-150 ease-in-out group-hover:text-gray-400"
+                          item.name === currentNavItem
+                            ? "bg-slate-100 text-[#8A0C35] before:content-[''] before:w-[30px] before:h-[30px] before:-mt-[30px] before:rotate-90 before:scale-[1.04] before:bg-[length:100%] before:bg-[url('/img/curva.svg')] before:absolute before:top-0 before:right-0 before:-mr-[15.5px] after:content-[''] after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04] after:bg-[length:100%] after:bg-[url('/img/curva.svg')] after:absolute after:top-0 after:right-0 after:-mr-[15.5px]"
+                            : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                          "group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
                         )}
-                        viewBox="0 0 20 20"
-                        aria-hidden="true"
+                        onClick={() => setCurrentNavItem(item.name)}
                       >
-                        <path d="M6 6L14 10L6 14V6Z" fill="currentColor" />
-                      </svg>
-                    </Disclosure.Button>
-                    <Disclosure.Panel className="space-y-1">
-                      {item.children.map((subItem) => (
-                        <Link
-                          key={subItem.name}
-                          to={subItem.href}
-                          className="group flex w-full items-center rounded-md py-2 pl-11 pr-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        <div
+                          className={`${
+                            item.name === currentNavItem
+                              ? "before:content-[''] before:z-[-1] before:absolute before:top-0 before:right-0 before:-mr-4 before:w-12 before:h-full before:bg-slate-100"
+                              : ""
+                          }`}
                         >
-                          {subItem.name}
-                        </Link>
-                      ))}
-                    </Disclosure.Panel>
-                  </>
-                )}
-              </Disclosure>
-            ))}
-          </div>
+                          <item.icon
+                            className={classNames(
+                              item.name === currentNavItem
+                                ? "text-[#8A0C35]"
+                                : "text-slate-200 group-hover:text-[#8A0C35]",
+                              "h-6 w-6 shrink-0"
+                            )}
+                            aria-hidden="true"
+                          />
+                        </div>
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Disclosure as="div">
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button
+                              className={classNames(
+                                item.name === currentNavItem
+                                  ? "bg-slate-100 text-[#8A0C35]"
+                                  : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                                "group cursor-pointer h-[50px] w-full flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
+                              )}
+                            >
+                              <item.icon
+                                className={classNames(
+                                  item.name === currentNavItem
+                                    ? "text-[#8A0C35]"
+                                    : "text-slate-200 group-hover:text-[#8A0C35]",
+                                  "h-6 w-6 shrink-0"
+                                )}
+                                aria-hidden="true"
+                              />
+                              {item.name}
+                              <ChevronRightIcon
+                                className={classNames(
+                                  open
+                                    ? "transition ease-in duration-100 ml-auto mr-5 hidden xl:block transform rotate-90"
+                                    : "",
+                                  "text-slate-200 group-hover:text-[#8A0C35] ml-auto h-5 w-5 shrink-0 mr-5"
+                                )}
+                                aria-hidden="true"
+                              />
+                            </Disclosure.Button>
+                            <Disclosure.Panel as="ul" className="mt-1 pl-8">
+                              {item.children.map((subItem) => (
+                                <li key={subItem.name}>
+                                  {/* 44px */}
+                                  <Link
+                                    to={subItem.href}
+                                    className={classNames(
+                                      subItem.name === currentNavItem
+                                        ? "bg-slate-100 text-[#8A0C35] before:content-[''] before:w-[30px] before:h-[30px] before:-mt-[30px] before:rotate-90 before:scale-[1.04] before:bg-[length:100%] before:bg-[url('/img/curva.svg')] before:absolute before:top-0 before:right-0 before:-mr-[15.5px] after:content-[''] after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04] after:bg-[length:100%] after:bg-[url('/img/curva.svg')] after:absolute after:top-0 after:right-0 after:-mr-[15.5px]"
+                                        : "text-slate-200 hover:text-[#8A0C35] hover:bg-slate-100",
+                                      "group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
+                                    )}
+                                    onClick={() =>
+                                      setCurrentNavItem(subItem.name)
+                                    }
+                                  >
+                                    <div
+                                      className={`${
+                                        subItem.name === currentNavItem
+                                          ? "before:content-[''] before:z-[-1] before:absolute before:top-0 before:right-0 before:-mr-4 before:w-12 before:h-full before:bg-slate-100"
+                                          : ""
+                                      }`}
+                                    >
+                                      {subItem.name}
+                                    </div>
+                                  </Link>
+                                </li>
+                              ))}
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          </ul>
         </nav>
       </div>
     </>
