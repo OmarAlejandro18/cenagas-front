@@ -21,8 +21,8 @@ const BarraLateral = ({
       <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#CF1350] px-6">
         <div className="flex h-16 shrink-0 items-center pt-10">
           <img
-            className="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=white"
+            className="h-16 mx-auto"
+            src="../src/assets/LOGO IKTAN STRATEGIES blanco.png"
             alt="Your Company"
           />
         </div>
@@ -34,7 +34,7 @@ const BarraLateral = ({
                 {navigation.map((item) => (
                   <li key={item.name}>
                     {!item.children ? (
-                      <a
+                      <Link
                         className={classNames(
                           item.name === currentNavItem
                             ? "bg-slate-100 text-[#8A0C35] before:content-[''] before:w-[30px] before:h-[30px] before:-mt-[30px] before:rotate-90 before:scale-[1.04] before:bg-[length:100%] before:bg-[url('/img/curva.svg')] before:absolute before:top-0 before:right-0 before:-mr-[15.5px] after:content-[''] after:w-[30px] after:h-[30px] after:mt-[50px] after:scale-[1.04] after:bg-[length:100%] after:bg-[url('/img/curva.svg')] after:absolute after:top-0 after:right-0 after:-mr-[15.5px]"
@@ -42,6 +42,7 @@ const BarraLateral = ({
                           "group cursor-pointer h-[50px] flex items-center gap-x-3 pl-5 mb-1 relative rounded-full z-10"
                         )}
                         onClick={() => setCurrentNavItem(item.name)}
+                        to={item.href}
                       >
                         <div
                           className={`${
@@ -61,7 +62,7 @@ const BarraLateral = ({
                           />
                         </div>
                         {item.name}
-                      </a>
+                      </Link>
                     ) : (
                       <Disclosure as="div">
                         {({ open }) => (

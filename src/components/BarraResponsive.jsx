@@ -70,8 +70,8 @@ const BarraResponsive = ({
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#CF1350] px-6 pb-2">
                   <div className="flex h-16 shrink-0 items-center">
                     <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=white"
+                      className="h-16 w-auto"
+                      src="../src/assets/LOGO IKTAN STRATEGIES blanco.png"
                       alt="Your Company"
                     />
                   </div>

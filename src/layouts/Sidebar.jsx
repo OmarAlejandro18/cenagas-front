@@ -13,7 +13,7 @@ import BarraLateral from "../components/BarraLateral";
 const navigation = [
   {
     name: "Instalaciones",
-    href: "/instalaciones",
+    href: "/dashboard",
     icon: HomeIcon,
     current: true,
   },
@@ -27,7 +27,12 @@ const navigation = [
       { name: "Listar", href: "/dashboard/listar" },
     ],
   },
-  { name: "Anexo 2", href: "/anexo2", icon: FolderIcon, current: false },
+  {
+    name: "Anexo 2",
+    href: "/dashboard/anexo2",
+    icon: FolderIcon,
+    current: false,
+  },
 ];
 
 function classNames(...classes) {
