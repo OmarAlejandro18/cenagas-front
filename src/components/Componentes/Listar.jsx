@@ -118,8 +118,8 @@ const Listar = () => {
             </Menu>
           </nav>
           <div className="grid grid-cols-12 gap-6 mt-5">
-            <div className="flex flex-wrap items-center col-span-12 mt-2 intro-y sm:flex-nowrap">
-              <div className="flex items-center justify-center">
+            <div className="flex flex-wrap items-center justify-between col-span-12 mt-2 intro-y sm:flex-nowrap">
+              <div className="flex items-center justify-start">
                 <label
                   htmlFor="tipo-pozo"
                   className="block text-sm font-medium leading-6 text-gray-900 w-60"
@@ -129,7 +129,7 @@ const Listar = () => {
                 <select
                   id="tipo-pozo"
                   name="tipo-pozo"
-                  className="mt-2 block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-inset sm:text-sm sm:leading-6 transition duration-200 ease-in-out text-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-[#8A0C35] focus:ring-opacity-20 focus:border-[#8A0C35] focus:border-opacity-40 !box self-start"
+                  className="block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-inset sm:text-sm sm:leading-6 transition duration-200 ease-in-out text-sm border-slate-200 placeholder:text-slate-400/90 focus:ring-4 focus:ring-[#8A0C35] focus:ring-opacity-20 focus:border-[#8A0C35] focus:border-opacity-40 !box self-start"
                 >
                   {opcionesPozo.map((op) => (
                     <option
@@ -142,15 +142,12 @@ const Listar = () => {
                   ))}
                 </select>
               </div>
-              <div className="hidden mx-auto md:block text-slate-500">
-                Mostrando 1 a 5 de 150 entradas
-              </div>
               <div className="w-full mt-3 sm:w-auto sm:mt-0 sm:ml-auto md:ml-0">
                 <div className="relative w-56 text-slate-500">
                   <input
                     className="transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-[#8A0C35] focus:ring-opacity-20 focus:border-[#8A0C35] focus:border-opacity-40 w-56 pr-10 !box"
                     type="text"
-                    placeholder="Buscar Instalación..."
+                    placeholder="Buscar Componente..."
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -188,6 +185,9 @@ const Listar = () => {
             >
               Atras
             </a>
+            <div className="hidden mx-auto md:block text-slate-500">
+              Mostrando 1 a 5 de 150 entradas
+            </div>
             <a
               href="#"
               className="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"

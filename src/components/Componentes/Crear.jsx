@@ -7,8 +7,14 @@ const pages = [
   { name: "Crear Instalacion", href: "#", current: false },
   // { name: "Project Nero", href: "#", current: true },
 ];
-const opcionesPozo = [{ opicion: "Equipo" }, { opicion: "Componente" }];
+const opcionesPozo = [
+  { opicion: "--Seleccione una opción--" },
+  { opicion: "Equipo" },
+  { opicion: "Componente" },
+];
+
 const opcionesEmisiones = [
+  { opicion: "--Seleccione una opción--" },
   { opicion: "Gramos" },
   { opicion: "Kilogramos" },
   { opicion: "Toneladas" },
